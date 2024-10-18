@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["./bin/rails", "server", "-b", "0.0.0.0"]
+    volumes:
+      - .:/rails
+    ports:
+      - "3000:3000"
+    environment:
+      - RAILS_ENV=development
+      - DATABASE_URL=postgres://speed_test_app:speed_test_app_db_pass@db/speed_test_app_development
+    depends_on:
+      - db
+
+  db:
+    image: postgres:13
+    volumes:
+      - ./tmp:/rails/tmp
+      - ./log:/rails/log
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: speed_test_app_development
+      POSTGRES_USER: speed_test_app
+      POSTGRES_PASSWORD: speed_test_app_db_pass
+
+volumes:
+  pg_data:

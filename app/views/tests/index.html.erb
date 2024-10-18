@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Speed Test</title>
+</head>
+<body>
+  <h1>Speed Test</h1>
+  <button id="start-test">Начать тестирование</button>
+  <div id="result" style="margin-top: 20px;"></div>
+
+  <script>
+    document.getElementById('start-test').onclick = function() {
+      fetch('/start_test', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({})
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Ошибка при тестировании');
+        }
+        return response.json();
+      })
+      .then(data => {
+        document.getElementById('result').innerHTML = `
+          <h2>${data.message}</h2>
+          <p>Время загрузки: ${data.result.upload_time} секунд</p>
+          <p>Время выгрузки: ${data.result.download_time} секунд</p>
+          <p>User-Agent: ${data.result.user_agent}</p>
+        `;
+      })
+      
+    };
+  </script>
+
+  
+</body>
+</html>
+
+

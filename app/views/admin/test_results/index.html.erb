@@ -1,0 +1,19 @@
+<h1>Результаты тестирования</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Загрузка (с)</th>
+      <th>Выгрузка (с)</th>
+      <th>User-Agent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @test_results.each do |result| %>
+      <tr>
+        <td><%= result.upload_time %></td>
+        <td><%= result.download_time %></td>
+        <td><%= result.user_agent %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
