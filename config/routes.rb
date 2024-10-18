@@ -3,11 +3,16 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :test_results, only: [:index]
   end
+  resources :tests, only: [] do
+    collection do
+      post :start
+    end
+  end
 
   post 'start_test', to: 'tests#start'
 
-  post 'test/upload_file', to: 'tests#upload_file' # Загрузка файла (если нужно отдельно)
-  get 'test/download_file', to: 'tests#download_file' # Для скачивания файла
+  post 'upload_file', to: 'tests#upload_file' # Загрузка файла (если нужно отдельно)
+  get 'download_file', to: 'tests#download_file' # Для скачивания файла
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
