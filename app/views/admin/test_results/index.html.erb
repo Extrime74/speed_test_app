@@ -1,4 +1,8 @@
 <h1>Результаты тестирования</h1>
+<%= button_to 'Logout', destroy_user_session_path, method: :delete %>
+
+<p>Current Admin JWT Token: <%= session[:user_token] %></p>
+
 <table>
   <thead>
     <tr>

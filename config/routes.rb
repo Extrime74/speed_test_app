@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :test_results, only: [:index]
   end
   
-  resources :tests, only: [] do
+  resources :tests, only: [:index] do
     collection do
       post :start
     end
