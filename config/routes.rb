@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
-  resources :test_results, only: [:create, :index]
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
+
   namespace :admin do
     resources :test_results, only: [:index]
   end
+  
   resources :tests, only: [] do
     collection do
       post :start
